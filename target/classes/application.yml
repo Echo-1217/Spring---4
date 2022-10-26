@@ -1,0 +1,8 @@
+server:
+  port: 8080
+# 設定預設的 port = 8080 若要新增 則更改 -Dserver.port=xxxx 即可
+broker:
+  host: localhost
+  port: 61616
+  username: artemis
+  password: artemis

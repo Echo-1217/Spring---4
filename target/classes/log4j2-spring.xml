@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<!--高 → 低
+off
+fatal
+error
+warn
+info
+debug
+trace
+all-->
+<configuration status="info">
+
+    <Appenders>
+
+        <Console name="Console">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5p %c{1} -%M   - %m%n%n"/>
+        </Console>
+
+        <RollingFile
+
+                name="RollingFile" fileName="${LOG_HOME}/rollF.log"
+                filePattern="${LOG_HOME}/$${date:yyyy-MM-dd}/%d{HH-mm}_%i.log">
+
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5p %c{1} -%M   - %m%n%n"/>
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="ACCEPT"/>
+
+            <Policies>
+
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+                <OnStartupTriggeringPolicy/>
+
+            </Policies>
+
+            <DefaultRolloverStrategy max="3"/>
+
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="info">
+
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+
+        </Root>
+
+        <!--        <Logger name="com.albert.management" level="debug"/>-->
+    </Loggers>
+
+</configuration>
