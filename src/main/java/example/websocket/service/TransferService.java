@@ -1,17 +1,16 @@
 package example.websocket.service;
 
 
-
 import example.websocket.controller.dto.request.CreateRequest;
 import example.websocket.controller.dto.request.DeleteRequest;
 import example.websocket.controller.dto.request.ReadRequest;
 import example.websocket.controller.dto.request.UpdateRequest;
 import example.websocket.controller.dto.response.ReadResponse;
 import example.websocket.controller.dto.response.TransferResponse;
-import example.websocket.model.entity.CASHI;
-import example.websocket.model.entity.MGNI;
 import example.websocket.model.CashiRepository;
 import example.websocket.model.MgniRepository;
+import example.websocket.model.entity.CASHI;
+import example.websocket.model.entity.MGNI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,10 +25,7 @@ import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TransferService {
@@ -41,7 +37,12 @@ public class TransferService {
 
     public ReadResponse getAllTransfer() {
         ReadResponse response = new ReadResponse();
-        response.setMgniList(mgniRepository.findAll());
+        List<MGNI> mgniList = mgniRepository.findAll();
+        if (mgniList.isEmpty()) {
+            response.setMessage("尚未有任何資料....");
+            return response;
+        }
+        response.setMgniList(mgniList);
         response.setMessage("read success");
         return response;
     }
@@ -91,9 +92,9 @@ public class TransferService {
     @Transactional
     public TransferResponse deleteTransfer(DeleteRequest request) {
         TransferResponse response = new TransferResponse();
-
-        if (mgniRepository.findById(request.getId().toUpperCase()).isPresent()) {
-            response.setMgni(mgniRepository.findById(request.getId().toUpperCase()).get());
+        Optional<MGNI> optionalMGNI =mgniRepository.findById(request.getId().toUpperCase());
+        if (optionalMGNI.isPresent()) {
+            response.setMgni(optionalMGNI.get());
             mgniRepository.deleteById(request.getId().toUpperCase());// cascadeType=All 所以不需要 delete cashi
             response.setMessage("deleted success");
             return response;
@@ -130,19 +131,18 @@ public class TransferService {
         // delete the old cash detail
         cashiRepository.deleteByMGNI_ID(updateRequest.getId().toUpperCase());
 
-        MGNI mgni = new MGNI();
+        Optional<MGNI> optionalMGNI = mgniRepository.findById(updateRequest.getId().toUpperCase());
 
-        if (mgniRepository.findById(updateRequest.getId().toUpperCase()).isEmpty()) {
+        if (optionalMGNI.isEmpty()) {
             response.setMessage("查無結果....");
             return response;
         }
-        mgni = mgniRepository.findById(updateRequest.getId().toUpperCase()).get();
 
-        mgni.setAmt(BigDecimal.ZERO); // 歸0
-        String message = setMGNI(mgni, null, updateRequest);
+        optionalMGNI.get().setAmt(BigDecimal.ZERO); // 歸0
+        String message = setMGNI(optionalMGNI.get(), null, updateRequest);
 
         if (message.equals("ok")) {
-            response.setMgni(mgni);
+            response.setMgni(optionalMGNI.get());
             response.setMessage("update success");
         } else {
             response.setMessage(message);

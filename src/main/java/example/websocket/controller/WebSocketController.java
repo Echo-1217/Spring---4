@@ -36,7 +36,7 @@ public class WebSocketController {
 
     @Getter
     @Setter
-    public static class WebSocketRequestMessage {
+    private static class WebSocketRequestMessage {
         // 前端傳回的資料由 java 物間包起來 才能做使用
         private String messageContent;
 

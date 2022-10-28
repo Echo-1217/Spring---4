@@ -8,9 +8,9 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import java.util.Optional;
 
 @Slf4j
-public class WebSocketDisconnectHandler<S> implements ApplicationListener<SessionDisconnectEvent> {
+public class DisconnectHandler<S> implements ApplicationListener<SessionDisconnectEvent> {
 
-    public WebSocketDisconnectHandler(SimpMessageSendingOperations messagingTemplate) {
+    public DisconnectHandler(SimpMessageSendingOperations messagingTemplate) {
         super();
     }
 

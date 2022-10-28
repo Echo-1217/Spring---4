@@ -18,9 +18,9 @@ import static java.util.Optional.ofNullable;
 @Service
 @Slf4j
 public class WebSocketChannelInterceptor implements ChannelInterceptor {
-    static final String API_KEY_HEADER = "authKey";
-    static final String SESSION_KEY_HEADER = "simpSessionId";
-    static final String WS_ID_HEADER = "ws-id";
+    static final String ApiKeyHeader = "authKey";
+    static final String SessionKeyHeader = "simpSessionId";
+    static final String WsIdHeader = "ws-id";
 
     //     Processes a message before sending it
     @Override
@@ -53,21 +53,21 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
         }
         return accessor;
     }
-
+    // 驗證 id
     private String readSessionId(StompHeaderAccessor accessor) {
-        return ofNullable(accessor.getMessageHeaders().get(SESSION_KEY_HEADER))
-                .orElseThrow(() -> new AuthenticationCredentialsNotFoundException("Session header not found")).toString();
+        return ofNullable(accessor.getMessageHeaders().get(SessionKeyHeader))  // 判定是否為 null true :　return .empty() ; false return .of(Value) ;
+                .orElseThrow(() -> new AuthenticationCredentialsNotFoundException("Session header not found")).toString(); // else throws new exception
     }
-
+    // 驗證 AuthKey
     private String readAuthKeyHeader(StompHeaderAccessor accessor) {
-        final String authKey = accessor.getFirstNativeHeader(API_KEY_HEADER);
-        if (authKey == null || authKey.trim().isEmpty())
+        final String authKey = accessor.getFirstNativeHeader(ApiKeyHeader);
+        if (authKey == null || authKey.trim().isEmpty()) // 有可能 user 前後手殘按到 space 故使用 String.trim()
             throw new AuthenticationCredentialsNotFoundException("Auth Key Not Found");
         return authKey;
     }
-
+    // 驗證 ws-id
     private String readWebSocketIdHeader(StompHeaderAccessor accessor) {
-        final String wsId = accessor.getFirstNativeHeader(WS_ID_HEADER);
+        final String wsId = accessor.getFirstNativeHeader(WsIdHeader);
         if (wsId == null || wsId.trim().isEmpty())
             throw new AuthenticationCredentialsNotFoundException("Web Socket ID Header not found");
         return wsId;

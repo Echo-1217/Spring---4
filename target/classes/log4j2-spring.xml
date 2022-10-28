@@ -19,8 +19,8 @@ all-->
 
         <RollingFile
 
-                name="RollingFile" fileName="${LOG_HOME}/rollF.log"
-                filePattern="${LOG_HOME}/$${date:yyyy-MM-dd}/%d{HH-mm}_%i.log">
+                name="RollingFile" fileName="${Log Spring 4}/rollF.log"
+                filePattern="${Log Spring 4}/$${date:yyyy-MM-dd}/%d{HH-mm}_%i.log">
 
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5p %c{1} -%M   - %m%n%n"/>
             <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="ACCEPT"/>

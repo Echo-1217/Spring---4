@@ -13,9 +13,9 @@ import java.security.Principal;
 import static java.util.Optional.ofNullable;
 
 @Slf4j
-public class WebSocketConnectHandler<S> implements ApplicationListener<SessionConnectEvent> {
+public class ConnectHandler<S> implements ApplicationListener<SessionConnectEvent> {
 
-    public WebSocketConnectHandler(SimpMessageSendingOperations messagingTemplate) {
+    public ConnectHandler(SimpMessageSendingOperations messagingTemplate) {
         super();
     }
 
