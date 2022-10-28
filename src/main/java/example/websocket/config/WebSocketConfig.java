@@ -16,7 +16,6 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 // 註解開啟Websocket的支持 並實作 WebSocketMessageBrokerConfigurer
 // @EnableWebSocketMessageBroker 註解表示開啟使用STOMP協議來傳輸基於代理的消息，Broker就是代理。
 @EnableWebSocketMessageBroker
-@Slf4j
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Autowired
@@ -57,7 +56,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setSystemPasscode(brokerPass)
                 .setUserDestinationBroadcast("/topic/unresolved-user")
                 .setUserRegistryBroadcast("/topic/log-user-registry");
-
 
         registry.setApplicationDestinationPrefixes("/app");
     }

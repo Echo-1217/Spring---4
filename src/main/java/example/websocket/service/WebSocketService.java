@@ -7,10 +7,7 @@ import example.websocket.controller.dto.request.CreateRequest;
 import example.websocket.controller.dto.request.DeleteRequest;
 import example.websocket.controller.dto.request.ReadRequest;
 import example.websocket.controller.dto.request.UpdateRequest;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -45,7 +42,7 @@ public class WebSocketService {
             messagingTemplate.convertAndSendToUser(id, "/topic/messages", obj);
         } catch (Exception exception) {
             log.error(exception.getLocalizedMessage());
-            messagingTemplate.convertAndSendToUser(id, "/topic/messages", new ErrTempResponse(exception.getMessage(), message));
+            messagingTemplate.convertAndSendToUser(id, "/topic/messages",new ErrTempResponse(exception.getMessage(),message));
         }
     }
 

@@ -23,12 +23,10 @@ public class AOP {
         log.info("正在調用 " + className + " - " + methodName + " 方法");
     }
 
-//    @AfterReturning(value = "pointcut()", returning = "result")
-//    public void afterReturn(JoinPoint point, Object result) {
-//        if (result != null) {
-//            log.info("結果: " + result);
-//        } else {
-//            log.info("結果:　" + null);
-//        }
-//    }
+    @AfterReturning(value = "pointcut()", returning = "result")
+    public void afterReturn(JoinPoint point, Object result) {
+        if (result != null) {
+            log.info("結果: " + result);
+        }
+    }
 }
