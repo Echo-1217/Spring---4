@@ -1,7 +1,6 @@
 package example.websocket.config;
 
 import example.websocket.service.WebSocketChannelInterceptor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +42,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     }
 
     // 透過 active MQ 讓兩個獨立的 application run 可以連接彼此
+    // 這個方法的作用是定義消息代理，通俗一點講就是設置消息連接請求的各種規範信息。
     @Override
     public void configureMessageBroker(final MessageBrokerRegistry registry) {
 //        registry.enableSimpleBroker("/queue", "/topic");
@@ -54,6 +54,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setClientPasscode(brokerPass)
                 .setSystemLogin(brokerUser)
                 .setSystemPasscode(brokerPass)
+
+                // 可以監聽特定的topic 使兩個 micro service 可以透過同一個 messageBroker 相互傳遞信息
                 .setUserDestinationBroadcast("/topic/unresolved-user")
                 .setUserRegistryBroadcast("/topic/log-user-registry");
 

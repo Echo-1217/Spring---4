@@ -2,7 +2,6 @@ package example.websocket.config;
 
 import example.websocket.handler.ConnectHandler;
 import example.websocket.handler.DisconnectHandler;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

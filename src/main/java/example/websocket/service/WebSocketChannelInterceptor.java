@@ -40,7 +40,7 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
             log.info("User with authKey '{}', ws-id {} session {} make a WebSocket connection and generated the user {}", apiKey, wsId, sessionId, user);
 
         }
-
+        // 驗證後回傳給前端
         return message;
 
     }
