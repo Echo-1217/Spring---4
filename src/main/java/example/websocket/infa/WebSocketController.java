@@ -1,4 +1,4 @@
-package example.websocket.controller;
+package example.websocket.infa;
 
 
 import example.websocket.service.WebSocketService;

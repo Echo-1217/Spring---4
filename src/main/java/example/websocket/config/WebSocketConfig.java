@@ -9,7 +9,6 @@ import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-
 // 設置消息連接請求的各種規範信息。
 @Configuration
 // 註解開啟Websocket的支持 並實作 WebSocketMessageBrokerConfigurer

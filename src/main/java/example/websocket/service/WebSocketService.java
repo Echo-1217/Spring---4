@@ -3,10 +3,10 @@ package example.websocket.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import example.websocket.controller.dto.request.CreateRequest;
-import example.websocket.controller.dto.request.DeleteRequest;
-import example.websocket.controller.dto.request.ReadRequest;
-import example.websocket.controller.dto.request.UpdateRequest;
+import example.websocket.infa.dto.request.CreateCommand;
+import example.websocket.infa.dto.request.DeleteRequest;
+import example.websocket.infa.dto.request.ReadRequest;
+import example.websocket.infa.dto.request.UpdateCommand;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,12 +53,12 @@ public class WebSocketService {
                 return transferService.readTransfer(readRequest);
             }
             case "create": {
-                CreateRequest createRequest = objectMapper.readValue(json, CreateRequest.class);
-                return transferService.createTransfer(createRequest);
+                CreateCommand createCommand = objectMapper.readValue(json, CreateCommand.class);
+                return transferService.createTransfer(createCommand);
             }
             case "update": {
-                UpdateRequest updateRequest = objectMapper.readValue(json, UpdateRequest.class);
-                return transferService.updateMGNI(updateRequest);
+                UpdateCommand updateCommand = objectMapper.readValue(json, UpdateCommand.class);
+                return transferService.updateMGNI(updateCommand);
             }
             case "delete": {
                 DeleteRequest deleteRequest = objectMapper.readValue(json, DeleteRequest.class);

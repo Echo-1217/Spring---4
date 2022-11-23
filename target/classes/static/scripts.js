@@ -15,6 +15,7 @@ function connect() {
     let wsId = document.getElementById("ws-id").value;
 
     // Try to set up WebSocket connection with the handshake
+    // 建立一個物件 與 WebSocket 進行連線
     var socket = new SockJS('/ws-register?authKey='+apiKey);
     // Create a new StompClient object with the WebSocket endpoint
     stompClient = Stomp.over(socket);

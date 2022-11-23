@@ -16,14 +16,14 @@ public class AOP {
     public void pointcut() {
     }
 
-    @Before(value = "pointcut()")
+//    @Before(value = "pointcut()")
     public void before(JoinPoint point) {
         String className = point.getTarget().getClass().getSimpleName();
         String methodName = point.getSignature().getName();
         log.info("正在調用 " + className + " - " + methodName + " 方法");
     }
 
-    @AfterReturning(value = "pointcut()", returning = "result")
+//    @AfterReturning(value = "pointcut()", returning = "result")
     public void afterReturn(JoinPoint point, Object result) {
         if (result != null) {
             log.info("結果: " + result);
